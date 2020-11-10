@@ -27,6 +27,7 @@ function buildHeaders() {
 
 export const auth = async (username, password, isNew = false) => {
   const url = `${BASE_URL}/users` + (isNew ? "/register" : "/login");
+  
 
   const response = await fetch(url, {
     method: "POST",

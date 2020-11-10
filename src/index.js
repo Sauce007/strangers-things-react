@@ -50,8 +50,10 @@ const App = () => {
               {post.title} ({post.location})
             </h5>
             <p>{post.description}</p>
-        <div> {
-            post.isAuthor ? <button>Delete</button> : ''}</div>
+            <div>{ post.isAuthor ? <button>DELETE</button> : " "}
+            </div>
+            
+           
           </div>
         );
       })}
