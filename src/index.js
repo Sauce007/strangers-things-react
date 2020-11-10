@@ -44,11 +44,14 @@ const App = () => {
             style={{
               border: post.isAuthor ? "5px solid gold" : "1px solid brown",
             }}
+            
           >
             <h5>
               {post.title} ({post.location})
             </h5>
             <p>{post.description}</p>
+        <div> {
+            post.isAuthor ? <button>Delete</button> : ''}</div>
           </div>
         );
       })}
