@@ -38,7 +38,7 @@ const App = () => {
           gridRow: 1,
           gridColumn: "1 / 3",
           marginBottom: "12px",
-          background: "#000",
+          background: "#590004",
           color: "#fff",
           padding: "8px",
         }}
