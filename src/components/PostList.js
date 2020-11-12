@@ -20,7 +20,7 @@ const PostList = (props) => {
             className="post"
             key={idx}
             style={{
-              border: post.isAuthor ? "5px solid gold" : "1px solid brown",
+              border: post.isAuthor ? "5px solid #EAAA00" : "1px solid brown",
             }}
           >
             <h5>

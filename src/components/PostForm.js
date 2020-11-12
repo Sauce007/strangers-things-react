@@ -52,7 +52,7 @@ const PostForm = (props) => {
         display: "grid",
         gridTemplateColumns: "1fr",
         maxWidth: "480px",
-        gap: "8px",
+        gap: "10px",
       }}
     >
       <h3>Share your stuff</h3>
