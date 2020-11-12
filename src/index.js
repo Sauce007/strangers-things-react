@@ -93,6 +93,7 @@ const App = () => {
             onchange = {() => setIsRecent(!isRecent)}
             
             />
+            Recent Posts Only
             </label>
         </div>
 
