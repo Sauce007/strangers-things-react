@@ -90,7 +90,7 @@ const App = () => {
             <input
             type = "checkbox"
             checked = {isRecent}
-            onchange = {() => setIsRecent(!isRecent)}
+            onChange = {() => setIsRecent(!isRecent)}
             
             />
             Recent Posts Only
