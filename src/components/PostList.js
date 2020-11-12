@@ -24,7 +24,7 @@ const PostList = (props) => {
             }}
           >
             <h5>
-              {post.title} ({post.location})
+              {post.title} ({post.location}) [{post.createdAt}]
             </h5>
             <p>{post.description}</p>
             <div>{ post.isAuthor ? <button>DELETE</button> : " "}
