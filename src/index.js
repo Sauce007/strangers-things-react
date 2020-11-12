@@ -30,7 +30,8 @@ const App = () => {
           const TWO_HOURS = 1000 * 60 * 60 * 4;
 
           return postTime + TWO_HOURS >= nowTime;
-      })
+      });
+      return postFilteredByRecency.reverse();
   }
 
   useEffect(() => {
