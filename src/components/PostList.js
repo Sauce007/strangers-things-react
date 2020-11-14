@@ -1,7 +1,7 @@
 import React from "react";
 
 const PostList = (props) => {
-  const { postList, setEditablePost } = props;
+  const { postList, setEditablePost, deletePost} = props;
 
   return (
     <div
@@ -38,7 +38,10 @@ const PostList = (props) => {
                 EDIT
               </button>
             ) : null}
-            <div>{ post.isAuthor ? <button>DELETE</button> : " "}
+            <div>{ post.isAuthor ? <button
+            onClick ={()=>{
+              deletePost(post);
+            }}>DELETE</button> : " "}
             </div>
           </div>
         );

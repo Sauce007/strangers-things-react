@@ -15,9 +15,21 @@ const App = () => {
   const [viewMessages, setViewMessages] = useState(false);
   const [userMessages, setUserMessages] = useState([]);
   const [editablePost, setEditablePost] = useState({});
+  const [_deletePost, setDeletePost] = useState({});
 
   function addNewPost(newPost) {
     setPostList([...postList, newPost]);
+  }
+
+  function deletePost(postToDelete) {
+      let index = postList.findIndex((post) => {
+          return post._id === postToDelete._id;
+      });
+      if (index > -1) {
+          let postListCopy = [...postList];
+          postListCopy.slice(index);
+          setPostList(postListCopy);
+      }
   }
 
   function updatePost(updatedPost) {
@@ -139,6 +151,8 @@ const App = () => {
           updatePost={updatePost}
           {...editablePost}
           setEditablePost={setEditablePost}
+          deletePost={deletePost}
+          
         />
       ) : null}
       <div
