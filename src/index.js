@@ -12,9 +12,24 @@ const App = () => {
   const [postList, setPostList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isRecent, setIsRecent] = useState(false);
+  const [viewMessages, setViewMessages] = useState(false);
+  const [userMessages, setUserMessages] = useState([]);
+  const [editablePost, setEditablePost] = useState({});
 
   function addNewPost(newPost) {
     setPostList([...postList, newPost]);
+  }
+
+  function updatePost(updatedPost) {
+    let index = postList.findIndex((post) => {
+      return post._id === updatedPost._id;
+    });
+
+    if (index > -1) {
+      let postListCopy = [...postList];
+      postListCopy[index] = updatedPost;
+      setPostList(postListCopy);
+    }
   }
 
   function filteredPosts(){
@@ -35,6 +50,21 @@ const App = () => {
   }
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      setUserMessages([]);
+      return;
+    }
+
+    hitAPI("get", "/users/me")
+      .then((data) => {
+        const { messages } = data;
+        setUserMessages(messages);
+      })
+      .catch(console.error);
+  }, [isLoggedIn]);
+
+
+  useEffect(() => {
     hitAPI("GET", "/posts")
       .then((data) => {
         const { posts } = data;
@@ -50,6 +80,8 @@ const App = () => {
         display: "grid",
         gridTemplateColumns: "1fr 360px",
         gridTemplateRows: "auto 1fr",
+        position: "relative",
+        height: "100vh",
       }}
     >
       <header
@@ -100,8 +132,70 @@ const App = () => {
 
 
       </header>
-      <PostList postList={filteredPosts()} />
-      {isLoggedIn ? <PostForm addNewPost={addNewPost} /> : null}
+      <PostList postList={filteredPosts()} setEditablePost={setEditablePost} />
+      {isLoggedIn ? (
+        <PostForm
+          addNewPost={addNewPost}
+          updatePost={updatePost}
+          {...editablePost}
+          setEditablePost={setEditablePost}
+        />
+      ) : null}
+      <div
+        className="personal-messages"
+        style={{
+          position: "fixed",
+          bottom: "12px",
+          right: "12px",
+        }}
+      >
+        {viewMessages ? (
+          <div
+            className="personal-message-list"
+            style={{
+              padding: "12px",
+              overflowY: "scroll",
+              background: "#ddf",
+              marginBottom: "12px",
+              boxShadow: "0 2px 4px -2px black",
+              borderRadius: "4px",
+              fontFamily: "sans-serif",
+            }}
+          >
+            {userMessages.map((msg, idx) => {
+              return (
+                <p key={idx}>
+                  On {msg.post.title}, {msg.fromUser.username} says:{" "}
+                  {msg.content}
+                </p>
+              );
+            })}
+          </div>
+        ) : null}
+
+        <div
+          className="personal-message-list-toggle"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            maxHeight: "480px",
+          }}
+        >
+          <span
+            className="material-icons"
+            style={{
+              padding: "6px",
+              borderRadius: "50%",
+              background: "#f88",
+              color: "#fff",
+            }}
+            onClick={() => setViewMessages(!viewMessages)}
+          >
+            mail
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 
 const PostList = (props) => {
-  const { postList } = props;
+  const { postList, setEditablePost } = props;
 
   return (
     <div
@@ -11,6 +11,8 @@ const PostList = (props) => {
         gap: "8px",
         gridColumn: 1,
         gridRow: 2,
+        overflowY: "scroll",
+        padding: "8px",
       }}
     >
       <h3>All Posts</h3>
@@ -27,6 +29,15 @@ const PostList = (props) => {
               {post.title} ({post.location}) [{post.createdAt}]
             </h5>
             <p>{post.description}</p>
+            {post.isAuthor ? (
+              <button
+                onClick={() => {
+                  setEditablePost(post);
+                }}
+              >
+                EDIT
+              </button>
+            ) : null}
             <div>{ post.isAuthor ? <button>DELETE</button> : " "}
             </div>
           </div>
