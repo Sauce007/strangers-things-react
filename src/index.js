@@ -5,6 +5,7 @@ import { getToken, clearToken, hitAPI } from "./api";
 import Auth from "./components/Auth";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
+import MessageForm from "./components/MessageForm";
 
 const App = () => {
   // a piece of state that represents the status of the current user
@@ -163,6 +164,7 @@ const App = () => {
           right: "12px",
         }}
       >
+         
         {viewMessages ? (
           <div
             className="personal-message-list"
@@ -186,7 +188,7 @@ const App = () => {
             })}
           </div>
         ) : null}
-
+        
         <div
           className="personal-message-list-toggle"
           style={{

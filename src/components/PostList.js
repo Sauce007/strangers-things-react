@@ -1,7 +1,10 @@
 import React from "react";
+import { hitAPI } from '../api';
 
-const PostList = (props) => {
-  const { postList, setEditablePost, deletePost} = props;
+
+function PostList(props) {
+  const { postList, setEditablePost, setPostList} = props;
+  
 
   return (
     <div
@@ -38,10 +41,18 @@ const PostList = (props) => {
                 EDIT
               </button>
             ) : null}
-            <div>{ post.isAuthor ? <button
-            onClick ={()=>{
-              deletePost(post);
-            }}>DELETE</button> : " "}
+            <div>
+              {post.isAuthor ? (
+                  <button 
+                   onClick={async () => {
+                    try {
+                        const data = await hitAPI("DELETE", `/posts/${post._id}`);
+                        setPostList([...postList]);
+                    } catch(error) {
+                        console.log(error)
+                    }
+                  }}>Delete</button>
+              ) : null}
             </div>
           </div>
         );
